@@ -1,6 +1,5 @@
 # NFT-Launchpad
 
-> **🟠 Priority:** High | **Difficulty:** Medium | **Estimated Effort:** 2–3 days
 
 The NFT factory and collection contract suite for the [Afristore Marketplace](https://github.com/Afristore/marketplace) — extracted from the monorepo into its own dedicated repository.
 
@@ -16,7 +15,7 @@ This workspace contains 5 Soroban smart contracts:
 
 ---
 
-## 🚀 Getting Started (once code is populated)
+##  Getting Started 
 
 ```bash
 # Build all contracts
@@ -35,7 +34,7 @@ cargo clippy --workspace -- -D warnings
 
 ---
 
-## 🔧 Prerequisites
+##  Prerequisites
 
 - Rust (stable)
 - `wasm32-unknown-unknown` target: `rustup target add wasm32-unknown-unknown`
@@ -43,7 +42,7 @@ cargo clippy --workspace -- -D warnings
 
 ---
 
-## 🏗️ Workspace Structure
+##  Workspace Structure
 
 ```
 NFT-Launchpad/
@@ -57,7 +56,7 @@ NFT-Launchpad/
 
 ---
 
-## 📋 Source Location (Monorepo)
+##  Source Location (Monorepo)
 
 This repository is being extracted from the following directories in the [main monorepo](https://github.com/Afristore/marketplace/tree/master/contracts):
 - `contracts/launchpad/`
@@ -66,11 +65,10 @@ This repository is being extracted from the following directories in the [main m
 - `contracts/lazy_mint_erc721/`
 - `contracts/lazy_mint_erc1155/`
 
-**Tracked in:** [ui-ux-issues.md — Issue 123](https://github.com/Afristore/marketplace/blob/master/ui-ux-issues.md)
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork this repository
 2. Create a feature branch: `git checkout -b feat/your-feature`
@@ -83,7 +81,7 @@ This repository is being extracted from the following directories in the [main m
 
 ---
 
-## 📦 Tech Stack
+##  Tech Stack
 
 - Rust + `soroban-sdk v25.3.0`
 - Stellar / Soroban smart contract platform
