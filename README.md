@@ -1,9 +1,8 @@
 # NFT-Launchpad
 
+This repository contains the Launchpad factory contract and all associated collection templates for the Afristore marketplace on Soroban.
 
-The NFT factory and collection contract suite for the [Afristore Marketplace](https://github.com/Afristore/marketplace) — extracted from the monorepo into its own dedicated repository.
-
-This workspace contains 5 Soroban smart contracts:
+## Contracts
 
 | Contract | Description |
 |---|---|
@@ -15,44 +14,42 @@ This workspace contains 5 Soroban smart contracts:
 
 ---
 
-##  Getting Started 
-
-```bash
-# Build all contracts
-cargo build --workspace --target wasm32-unknown-unknown --release
-
-# Run all tests
-cargo test --workspace --features testutils
-
-# Check formatting and linting
-cargo fmt --check
-cargo clippy --workspace -- -D warnings
-
-# Optimize all WASMs
-./build-all.sh
-```
-
----
-
 ##  Prerequisites
 
 - Rust (stable)
-- `wasm32-unknown-unknown` target: `rustup target add wasm32-unknown-unknown`
+- `wasm32v1-none` target: `rustup target add wasm32v1-none`
 - Stellar CLI: `cargo install --locked stellar-cli`
 
 ---
 
-##  Workspace Structure
+## Build and Optimization
 
+To build all contracts and optimize the generated WASM files, run the provided script:
+```bash
+./build-all.sh
 ```
-NFT-Launchpad/
-├── Cargo.toml                  # Workspace root
-├── launchpad/                  # Factory contract
-├── collection_nft_erc721/      # Standard ERC-721
-├── collection_nft_erc1155/     # Standard ERC-1155
-├── lazy_mint_erc721/           # Lazy-mint ERC-721
-└── lazy_mint_erc1155/          # Lazy-mint ERC-1155
+This requires `stellar-cli` to be installed for the `stellar contract optimize` command.
+
+---
+
+## Deploying to Testnet
+
+1. Deploy the Launchpad contract:
+```bash
+stellar contract deploy \
+  --wasm target/wasm32v1-none/release/soroban_launchpad.wasm \
+  --source <YOUR_ACCOUNT> \
+  --network testnet
 ```
+2. Deploy the desired collection WASM (e.g., ERC-721) to get its WASM hash:
+```bash
+stellar contract install \
+  --wasm target/wasm32v1-none/release/collection_nft_erc721.wasm \
+  --source <YOUR_ACCOUNT> \
+  --network testnet
+```
+3. Initialize the Launchpad with the returned WASM hash.
+4. Invoke the launchpad contract to deploy a new collection, and it will return the address of the newly deployed collection.
 
 ---
 
@@ -65,7 +62,6 @@ This repository is being extracted from the following directories in the [main m
 - `contracts/lazy_mint_erc721/`
 - `contracts/lazy_mint_erc1155/`
 
-
 ---
 
 ##  Contributing
@@ -76,7 +72,7 @@ This repository is being extracted from the following directories in the [main m
    - `cargo fmt --check` — all members must be correctly formatted
    - `cargo clippy --workspace -- -D warnings` — zero warnings across all contracts
    - `cargo test --workspace --features testutils` — all cross-contract tests must pass
-   - `cargo build --workspace --target wasm32-unknown-unknown --release` — all 5 contracts must produce WASM binaries
+   - `cargo build --workspace --target wasm32v1-none --release` — all 5 contracts must produce WASM binaries
 4. Open a PR — **all CI must pass before a PR is eligible for review and merge**
 
 ---
