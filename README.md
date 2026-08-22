@@ -4,11 +4,23 @@ This repository contains the Launchpad factory contract and all associated colle
 
 ## Contracts
 
-- **`launchpad`**: The factory contract used to deploy collection contracts.
-- **`collection_nft_erc721`**: A standard ERC-721 collection contract.
-- **`collection_nft_erc1155`**: A standard ERC-1155 collection contract.
-- **`lazy_mint_erc721`**: A lazy-mint ERC-721 collection contract.
-- **`lazy_mint_erc1155`**: A lazy-mint ERC-1155 collection contract.
+| Contract | Description |
+|---|---|
+| `launchpad` | Factory contract that deploys new NFT collections |
+| `collection_nft_erc721` | Standard ERC-721 NFT collection |
+| `collection_nft_erc1155` | Standard ERC-1155 multi-edition collection |
+| `lazy_mint_erc721` | Lazy-mint ERC-721 (mint on purchase) |
+| `lazy_mint_erc1155` | Lazy-mint ERC-1155 (mint on purchase) |
+
+---
+
+##  Prerequisites
+
+- Rust (stable)
+- `wasm32v1-none` target: `rustup target add wasm32v1-none`
+- Stellar CLI: `cargo install --locked stellar-cli`
+
+---
 
 ## Build and Optimization
 
@@ -18,9 +30,9 @@ To build all contracts and optimize the generated WASM files, run the provided s
 ```
 This requires `stellar-cli` to be installed for the `stellar contract optimize` command.
 
-## Deploying to Testnet
+---
 
-To deploy the Launchpad and deploy a collection through it:
+## Deploying to Testnet
 
 1. Deploy the Launchpad contract:
 ```bash
@@ -38,3 +50,40 @@ stellar contract install \
 ```
 3. Initialize the Launchpad with the returned WASM hash.
 4. Invoke the launchpad contract to deploy a new collection, and it will return the address of the newly deployed collection.
+
+---
+
+##  Source Location (Monorepo)
+
+This repository is being extracted from the following directories in the [main monorepo](https://github.com/Afristore/marketplace/tree/master/contracts):
+- `contracts/launchpad/`
+- `contracts/collection_nft_erc721/`
+- `contracts/collection_nft_erc1155/`
+- `contracts/lazy_mint_erc721/`
+- `contracts/lazy_mint_erc1155/`
+
+---
+
+##  Contributing
+
+1. Fork this repository
+2. Create a feature branch: `git checkout -b feat/your-feature`
+3. Make your changes and ensure all CI checks pass:
+   - `cargo fmt --check` — all members must be correctly formatted
+   - `cargo clippy --workspace -- -D warnings` — zero warnings across all contracts
+   - `cargo test --workspace --features testutils` — all cross-contract tests must pass
+   - `cargo build --workspace --target wasm32v1-none --release` — all 5 contracts must produce WASM binaries
+4. Open a PR — **all CI must pass before a PR is eligible for review and merge**
+
+---
+
+##  Tech Stack
+
+- Rust + `soroban-sdk v25.3.0`
+- Stellar / Soroban smart contract platform
+
+---
+
+## 📄 License
+
+MIT — see [LICENSE](./LICENSE)
